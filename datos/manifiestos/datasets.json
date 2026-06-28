@@ -1,0 +1,116 @@
+{
+  "datos/brutos/real_normal_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_normal_001.csv",
+    "sha256": "34d28806319cf1cd5e3a39e30c8ed8fe0a59948684b29b4be407a343bb105b29",
+    "tamano_bytes": 25785650,
+    "descripcion": "Dataset largo con circulacion normal."
+  },
+  "datos/brutos/real_anomaly_route_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_route_001.csv",
+    "sha256": "567b8bddb2879625bf8f8e0165fd3d752356f04f732f23cefc99e0bdc75ec14b",
+    "tamano_bytes": 12954372,
+    "descripcion": "Dataset con impactos y anomalias de via."
+  },
+  "datos/brutos/real_slip_validation_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_validation_001.csv",
+    "sha256": "f9c19b5c541432f7490149897d315faec34f9cdfea913d6f6097b804fbf078df",
+    "tamano_bytes": 4194929,
+    "descripcion": "Captura positiva de patinaje integrada en el entrenamiento final."
+  },
+  "datos/brutos/real_movement_004.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_movement_004.csv",
+    "sha256": "ac9f5aaa3fb509fc45f17b975b5bce5b8f50c0dbe48ab5c70afd537afd5406f4",
+    "tamano_bytes": 25766407,
+    "descripcion": "Captura larga de circulacion normal para entrenamiento y calibracion."
+  },
+  "datos/test_performance_2.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/test_performance_2.csv",
+    "sha256": "7b66508b8f19c6e04ce5032bd1183d8bb8add74497698246516e03cf17a19c92",
+    "tamano_bytes": 2904894,
+    "descripcion": "Captura positiva de patinaje usada por el entrenamiento MIL."
+  },
+  "datos/brutos/real_slip_validation_002.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_validation_002.csv",
+    "sha256": "db63bc19c813940e1912cf0e63c2d0b6bb14e31d0cd0bde7995cbcc7de0a6e3d",
+    "tamano_bytes": 4316466,
+    "descripcion": "Captura independiente de patinaje reservada para validacion externa."
+  },
+  "datos/etiquetas/real_anomaly_route_001_windows.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_route_001_windows.csv",
+    "sha256": "20ffb474800f62c544060cf4803f5b801eae7cc3c25fc78cf2dd55d94faf8a4d",
+    "tamano_bytes": 509087,
+    "descripcion": "Ventanas etiquetadas para la ruta con anomalias."
+  },
+  "datos/etiquetas/real_slip_manual_001_windows.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_001_windows.csv",
+    "sha256": "2b56d7ac5c591dd18fab539f4f303e7ae9ae9247104d2be6038ccf2e17474cde",
+    "tamano_bytes": 1124708,
+    "descripcion": "Ventanas etiquetadas para real_slip_manual_001."
+  },
+  "datos/etiquetas/real_slip_manual_002_windows.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_002_windows.csv",
+    "sha256": "3f083f28e1d4626e8dbd358d415ee1e1e86ae4fa887d9fea5e5ae2118c2839a7",
+    "tamano_bytes": 1153801,
+    "descripcion": "Ventanas etiquetadas para real_slip_manual_002."
+  },
+  "datos/brutos/real_anomaly_controlled_10laps_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_controlled_10laps_001.csv",
+    "sha256": "72a37b932db1b9b8800583a1af3481fe0f58105131fe2d095aff53a42bda3031",
+    "tamano_bytes": 666883,
+    "descripcion": "Captura controlada de diez vueltas con anomalias para evaluacion."
+  },
+  "datos/brutos/real_slip_manual_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_001.csv",
+    "sha256": "5d09a4b032684df8d9120fb12dc6efa01da2c64455917965b1ce3de899227e91",
+    "tamano_bytes": 4199496,
+    "descripcion": "Captura con eventos manuales de patinaje."
+  },
+  "datos/brutos/real_slip_manual_001_events.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_001_events.csv",
+    "sha256": "e2ce0cebec00daf7e651f60c4f3860f3a491697a08cf87395071cd6872403c95",
+    "tamano_bytes": 2895,
+    "descripcion": "Eventos manuales asociados a real_slip_manual_001."
+  },
+  "datos/brutos/real_slip_manual_002.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_002.csv",
+    "sha256": "41e8584793a0381948802f796c1e65c54dea9264efa0a0e8ee809fcaf8552b1a",
+    "tamano_bytes": 4316934,
+    "descripcion": "Segunda captura con eventos manuales de patinaje."
+  },
+  "datos/brutos/real_slip_manual_002_events.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_manual_002_events.csv",
+    "sha256": "bc4a57102ff8a66f10731e6c5487deb9a67f79364090770606932a01d43fdb21",
+    "tamano_bytes": 9213,
+    "descripcion": "Eventos manuales asociados a real_slip_manual_002."
+  },
+  "datos/brutos/real_slip_only_001.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_only_001.csv",
+    "sha256": "1c1a26d11998b604a823b9528b98cf941faf03c9b2d92269f48e41065ba14028",
+    "tamano_bytes": 4194834,
+    "descripcion": "Captura centrada en patinaje para clasificadores de slip."
+  },
+  "datos/etiquetas/real_slip_only_001_windows.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_slip_only_001_windows.csv",
+    "sha256": "4b33b9ee97d684d8f2b6e4ed554678a81cfe4418876a7a54c4896ba74cd6dab6",
+    "tamano_bytes": 273362,
+    "descripcion": "Ventanas etiquetadas de la captura slip-only."
+  },
+  "datos/etiquetas/real_anomaly_route_001_ignore_intervals.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_route_001_ignore_intervals.csv",
+    "sha256": "9d8f14e82f8bab793f98d379e16b687c9fb6285155f56d54d443480d983cb1f1",
+    "tamano_bytes": 101,
+    "descripcion": "Intervalos ignorados en el etiquetado de la ruta con anomalias."
+  },
+  "datos/procesados/real_anomaly_route_001_anomaly_segments.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_route_001_anomaly_segments.csv",
+    "sha256": "6bbdca37c8f55f94626c439a2e98b1ca64ffc4b1347e8ced269bf82ad58f4e46",
+    "tamano_bytes": 7024738,
+    "descripcion": "Segmentos procesados de anomalia de la ruta real."
+  },
+  "datos/procesados/real_anomaly_route_001_normal_segments.csv": {
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/datasets-v1.0/real_anomaly_route_001_normal_segments.csv",
+    "sha256": "af42e789678bec49cce2dd196d7d4bab6aa2becb2b63bdda9c91dff9248fb66a",
+    "tamano_bytes": 2358196,
+    "descripcion": "Segmentos procesados normales de la ruta real."
+  }
+}

@@ -1,0 +1,37 @@
+services:
+  rocm-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.rocm
+      args:
+        # AMD publishes validated PyTorch+ROCm images. Pin this tag later
+        # if a specific ROCm/PyTorch combo is validated for the project PC.
+        ROCM_PYTORCH_IMAGE: rocm/pytorch:rocm7.2.4_ubuntu22.04_py3.10_pytorch_release_2.10.0
+        
+    image: tfm-inference-rocm:dev
+    container_name: tfm-inference-rocm-dev
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - "${VIDEO_GID:-985}"
+      - "${RENDER_GID:-989}"
+    ipc: host
+    shm_size: 8gb
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workspace/inference_server
+      - ../datos:/workspace/datos
+    working_dir: /workspace/inference_server
+    environment:
+      PYTHONPATH: /workspace/inference_server
+      DATA_ROOT: /workspace/datos
+      HSA_OVERRIDE_GFX_VERSION: ${HSA_OVERRIDE_GFX_VERSION:-}
+    command: >
+      bash -lc "python docker/check_rocm.py &&
+                jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root"

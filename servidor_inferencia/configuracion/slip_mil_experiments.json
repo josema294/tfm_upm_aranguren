@@ -1,0 +1,77 @@
+{
+  "active_experiment": "slip-mil-w30-50-100-testperf-plus-validation-v2",
+  "wandb": {
+    "enabled": true,
+    "project": "tfm-railway-anomaly",
+    "entity": null
+  },
+  "defaults": {
+    "slip_csvs": [
+      "../datos/test_performance_2.csv"
+    ],
+    "normal_csv": "../datos/brutos/real_movement_004.csv",
+    "slip_end_s": 600.0,
+    "lap_period_s": 10.0,
+    "window_step": 10,
+    "normal_max_bags": 240,
+    "normal_train_fraction": 0.7,
+    "max_normal_fp_rate": 0.02,
+    "epochs": 60,
+    "learning_rate": 0.0006,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "seed": 42,
+    "output_dir": "../datos/analisis/slip_manual/mil_cnn",
+    "models_dir": "models"
+  },
+  "experiments": {
+    "slip-mil-w30-50-100-testperf-v1": {
+      "model_name": "slip_mil_w30_50_100_testperf_v1",
+      "notes": "MIL por vueltas: test_performance_2 slip-only como bolsas positivas y real_movement_004 como bolsas normales negativas."
+    },
+    "slip-mil-w30-50-100-testperf-plus-validation-v2": {
+      "model_name": "slip_mil_w30_50_100_testperf_plus_validation_v2",
+      "slip_csvs": [
+        "../datos/test_performance_2.csv",
+        "../datos/brutos/real_slip_validation_001.csv"
+      ],
+      "normal_max_bags": 300,
+      "max_normal_fp_rate": 0.02,
+      "notes": "MIL con dos runs slip positivas. real_slip_validation_001 deja de ser validacion externa y pasa a entrenamiento; se debe capturar validation_002 para validar."
+    },
+    "slip-mil-w30-50-100-testperf-more-normal": {
+      "model_name": "slip_mil_w30_50_100_testperf_more_normal_v1",
+      "normal_max_bags": 320,
+      "max_normal_fp_rate": 0.01,
+      "notes": "Variante mas conservadora: mas vueltas normales y restriccion de falsos positivos mas dura."
+    },
+    "slip-mil-w30-50-100-testperf-short-step": {
+      "model_name": "slip_mil_w30_50_100_testperf_step5_v1",
+      "window_step": 5,
+      "normal_max_bags": 180,
+      "notes": "Variante con mayor solape temporal para eventos slip muy breves."
+    }
+  },
+  "previous_wandb_runs": [
+    {
+      "name": "vae-real-v2-window1s-reference",
+      "notebook": "07_train_vae_experiments.ipynb",
+      "role": "Referencia VAE 1s usada antes de especializar slip."
+    },
+    {
+      "name": "vae-real-v13-window2s-derived-adamw-cosine",
+      "notebook": "07_train_vae_experiments.ipynb",
+      "role": "Mejor variante VAE general para impacto/salto."
+    },
+    {
+      "name": "slip_cnn_supervised_w50_s10_v1",
+      "notebook": "08_train_supervised_slip_detector.ipynb",
+      "role": "CNN supervisada con marcas manuales exactas; buen cross-run pero demasiados falsos positivos en normal larga."
+    },
+    {
+      "name": "slip_multiscale_w30_50_100_bg_v1",
+      "script": "herramientas/train_multiscale_slip_cnn.py",
+      "role": "CNN multi-escala con negativos normales; reduce falsos positivos pero pierde recall slip."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+ARG ROCM_PYTORCH_IMAGE=rocm/pytorch:latest-release
+FROM ${ROCM_PYTORCH_IMAGE}
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONPATH=/workspace/inference_server
+
+WORKDIR /workspace/inference_server
+
+COPY requirements-dev.txt /tmp/requirements-dev.txt
+RUN python -m pip install --upgrade pip && \
+    python -m pip install --no-cache-dir -r /tmp/requirements-dev.txt
+
+CMD ["bash"]

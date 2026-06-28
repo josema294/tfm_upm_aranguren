@@ -1,0 +1,25 @@
+data:
+  sample_rate_hz: 100
+  window_size: 100
+  step: 50
+  feature_columns:
+    - acc_x_g
+    - acc_y_g
+    - acc_z_g
+
+model:
+  in_channels: 3
+  encoder_filters: [16, 32, 64]
+  kernel_size: 5
+
+training:
+  batch_size: 256
+  learning_rate: 0.001
+  epochs: 100
+  seed: 42
+  validation_split: 0.2
+
+inference:
+  threshold_quantile: 0.999
+  min_anomaly_ratio: 0.02
+  severe_threshold_multiplier: 3.0

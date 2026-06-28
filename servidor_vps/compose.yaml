@@ -1,0 +1,13 @@
+services:
+  vps-server:
+    build: .
+    container_name: tfm-vps
+    ports:
+      - "8055:8055"
+    environment:
+      - TFM_SERVER_DATA=/data/server_data
+    env_file:
+      - .env
+    volumes:
+      - ./server_data:/data/server_data
+    restart: unless-stopped

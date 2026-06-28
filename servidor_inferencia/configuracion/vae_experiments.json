@@ -1,0 +1,207 @@
+{
+  "active_experiment": "vae-real-v13-window2s-derived-adamw-cosine",
+  "wandb": {
+    "enabled": true,
+    "project": "tfm-railway-anomaly",
+    "entity": null
+  },
+  "defaults": {
+    "seed": 42,
+    "sample_rate_hz": 100,
+    "batch_size": 512,
+    "epochs": 30,
+    "learning_rate": 0.001,
+    "latent_dim": 24,
+    "beta": 0.001,
+    "beta_warmup_epochs": 0,
+    "threshold_percentile": 99.0,
+    "max_train_windows": 25000,
+    "validation_ratio": 0.2,
+    "max_abs_g": 8.0,
+    "optimizer": "adam",
+    "weight_decay": 0.0,
+    "grad_clip_norm": 0.0,
+    "scheduler": "none"
+  },
+  "experiments": {
+    "vae-real-v2-window1s-reference": {
+      "run_name": "vae-real-v2-window1s-reference",
+      "model_filename": "vae_real_v2_window1s_reference.pth",
+      "window_size": 100,
+      "window_step": 50,
+      "latent_dim": 16,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g"
+      ]
+    },
+    "vae-real-v3-window2s-base": {
+      "run_name": "vae-real-v3-window2s-base",
+      "model_filename": "vae_real_v3_window2s_base.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g"
+      ]
+    },
+    "vae-real-v4-window2s-derived": {
+      "run_name": "vae-real-v4-window2s-derived",
+      "model_filename": "vae_real_v4_window2s_derived.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v5-window15s-derived": {
+      "run_name": "vae-real-v5-window15s-derived",
+      "model_filename": "vae_real_v5_window15s_derived.pth",
+      "window_size": 150,
+      "window_step": 25,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v6-window1s-derived": {
+      "run_name": "vae-real-v6-window1s-derived",
+      "model_filename": "vae_real_v6_window1s_derived.pth",
+      "window_size": 100,
+      "window_step": 25,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v7-window075s-derived": {
+      "run_name": "vae-real-v7-window075s-derived",
+      "model_filename": "vae_real_v7_window075s_derived.pth",
+      "window_size": 75,
+      "window_step": 25,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v8-window3s-base": {
+      "run_name": "vae-real-v8-window3s-base",
+      "model_filename": "vae_real_v8_window3s_base.pth",
+      "window_size": 300,
+      "window_step": 50,
+      "latent_dim": 32,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g"
+      ]
+    },
+    "vae-real-v9-window2s-derived-latent12": {
+      "run_name": "vae-real-v9-window2s-derived-latent12",
+      "model_filename": "vae_real_v9_window2s_derived_latent12.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "latent_dim": 12,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v10-window2s-derived-latent48": {
+      "run_name": "vae-real-v10-window2s-derived-latent48",
+      "model_filename": "vae_real_v10_window2s_derived_latent48.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "latent_dim": 48,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v11-window2s-derived-beta-low": {
+      "run_name": "vae-real-v11-window2s-derived-beta-low",
+      "model_filename": "vae_real_v11_window2s_derived_beta_low.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "beta": 0.0003,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v12-window2s-derived-beta-warmup": {
+      "run_name": "vae-real-v12-window2s-derived-beta-warmup",
+      "model_filename": "vae_real_v12_window2s_derived_beta_warmup.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "beta": 0.001,
+      "beta_warmup_epochs": 10,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    },
+    "vae-real-v13-window2s-derived-adamw-cosine": {
+      "run_name": "vae-real-v13-window2s-derived-adamw-cosine",
+      "model_filename": "vae_real_v13_window2s_derived_adamw_cosine.pth",
+      "window_size": 200,
+      "window_step": 50,
+      "optimizer": "adamw",
+      "weight_decay": 0.0001,
+      "scheduler": "cosine",
+      "grad_clip_norm": 1.0,
+      "feature_columns": [
+        "acc_x_g",
+        "acc_y_g",
+        "acc_z_g",
+        "acc_magnitude_g",
+        "delta_x_g",
+        "delta_y_g",
+        "delta_z_g"
+      ]
+    }
+  }
+}

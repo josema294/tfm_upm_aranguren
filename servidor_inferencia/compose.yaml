@@ -1,0 +1,11 @@
+services:
+  inference-worker:
+    build: .
+    container_name: tfm-worker
+    env_file:
+      - .env
+    volumes:
+      - ./models:/app/models
+      # Puedes montar tu GPU aquí si usas nvidia-docker o equivalentes,
+      # aunque para despliegue rápido por defecto en servidor usamos CPU.
+    restart: unless-stopped

@@ -1,0 +1,18 @@
+{
+  "servidor_inferencia/models/vae_real_v6_window1s_derived.pth": {
+    "tipo": "modelo",
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/weights-v1.0/vae_real_v6_window1s_derived.pth",
+    "sha256": "d20cb48261c048519c0cbf8d14612847a2e2ec87a4d74e13e3d0d020801ffe89",
+    "tamano_bytes": 930343,
+    "necesario_para": ["hybrid", "vae"],
+    "descripcion": "VAE final para anomalias generales"
+  },
+  "servidor_inferencia/models/slip_mil_w30_50_100_testperf_plus_validation_v2.pth": {
+    "tipo": "modelo",
+    "url": "https://github.com/josema294/tfm_upm_aranguren/releases/download/weights-v1.0/slip_mil_w30_50_100_testperf_plus_validation_v2.pth",
+    "sha256": "f200970f71ac9cf76396a953cc13fd3adf82c78e1f12871738bf3c08260ef7aa",
+    "tamano_bytes": 274179,
+    "necesario_para": ["hybrid"],
+    "descripcion": "CNN MIL multiescala final para slip"
+  }
+}

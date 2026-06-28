@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Entorno y Secretos
+.env
+.env_pre
+.env_pro
+config.h
+VPS_API_KEY
+TFM_API_KEYS
+WIFI_PASSWORD
+
+# Modelos y Datos pesados (gestionados por artefactos/manifiesto.json y releases)
+models/
+modelos/
+*.pth
+*.pt
+*.onnx
+*.pkl
+datos/brutos/
+datos/etiquetas/
+datos/analisis/
+datos/figuras/
+datos/procesados/
+datos/test_performance_2.csv
+datos_servidor/
+server_data/
+wandb/
+salidas/
+outputs/
+checkpoints/
+
+# IDE y SO
+.vscode/
+.idea/
+.DS_Store
+*.swp
+.sync_*
+.nextcloudsync.log

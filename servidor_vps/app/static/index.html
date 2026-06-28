@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monitorización Automatizada del Estado de Sistemas Ferroviarios mediante Deep Learning
+</title>
+    <link rel="icon" type="image/png" href="/ui/favicon.png" />
+    <link rel="stylesheet" href="/ui/styles.css?v=20260610-live-ux" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Monitorización Automatizada del Estado de Sistemas Ferroviarios mediante Deep Learning
+</h1>
+        <p>Trabajo de fin de master de Jose Maria Aranguren Palma.
+</p>
+      </div>
+      <nav class="tabs" aria-label="Secciones">
+        <button class="tab active" data-tab="home">Inicio</button>
+        <button class="tab" data-tab="async">Analisis asincrono</button>
+        <button class="tab" data-tab="sync">Analisis sincrono</button>
+        <button class="tab" data-tab="config">Configuracion</button>
+        <button class="tab" data-tab="about">Acerca de</button>
+        <form method="post" action="/logout">
+          <button class="tab" type="submit">Salir</button>
+        </form>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="tab-panel active" id="tab-home">
+        <div class="hero home-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Trabajo Fin de Master</p>
+            <h2>Detecta anomalias en ya sea de manera sincrona con los datos enviados en directo o asincrona subiendo el csv con los datos capturados.</h2>
+            <p>
+              Plataforma experimental para capturar vibraciones de una maqueta ferroviaria con ESP32 y ADXL345,
+              enviar los datos a un VPS y detectar tramos anomalos mediante modelos de deep learning ejecutados
+              en un servidor de inferencia externo. 
+            </p>
+            <div class="institution-strip" aria-label="Instituciones">
+              <div class="institution-card upm-mark">
+                <img src="/ui/assets/upm-logo.png" alt="Logo UPM" />
+                <div>
+                  <strong>UPM</strong>
+                  <span>Universidad Politecnica de Madrid</span>
+                </div>
+              </div>
+              <div class="institution-card master-mark">
+                <img src="/ui/assets/master-deep-learning-logo.png" alt="Logo Master Deep Learning" />
+                <div>
+                  <strong>Master Deep Learning</strong>
+                  <span>Aplicacion a monitorizacion ferroviaria</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-media">
+            <video src="/media/videohome" autoplay muted loop playsinline></video>
+            <p>Prototipo fisico del sistema en funcionamiento.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-async">
+        <div class="section-grid">
+          <section class="panel">
+            <h2>Subir CSV</h2>
+            <form id="uploadForm" class="form">
+              <label>
+                Session ID
+                <input id="uploadSessionId" required value="csv_test_001" />
+              </label>
+              <label>
+                CSV
+                <input id="csvFile" type="file" accept=".csv" required />
+              </label>
+              <p class="hint">Acepta formato TFM (<code>seq,timestamp_ms,acc_x_g,acc_y_g,acc_z_g</code>) o formato MLOps (<code>timestamp,accel_x,accel_y,accel_z</code>).</p>
+              <button type="submit">Subir y encolar analisis</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Estado de analisis</h2>
+              <button id="jobsBtn">Actualizar</button>
+            </div>
+            <div id="jobsDetail" class="detail">Sin consultar.</div>
+          </section>
+        </div>
+
+        <section class="panel wide">
+          <div class="panel-header">
+            <h2>Sesiones asincronas</h2>
+            <button id="sessionsBtn">Recargar</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><button class="sort-header" data-sort="session_id">session_id</button></th>
+                  <th><button class="sort-header" data-sort="mode">modo</button></th>
+                  <th><button class="sort-header" data-sort="rows">filas</button></th>
+                  <th><button class="sort-header" data-sort="status">estado sesion</button></th>
+                  <th><button class="sort-header" data-sort="max_score">pico anomalia</button></th>
+                  <th><button class="sort-header" data-sort="anomaly_ratio">ratio anomalia</button></th>
+                  <th><button class="sort-header" data-sort="updated_at">actualizada</button></th>
+                  <th>acciones</th>
+                </tr>
+              </thead>
+              <tbody id="sessionsBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button id="prevSessionsPage" class="secondary" type="button">Anterior</button>
+            <span id="sessionsPageInfo">Pagina 1 de 1</span>
+            <button id="nextSessionsPage" class="secondary" type="button">Siguiente</button>
+          </div>
+        </section>
+
+        <section class="panel wide">
+          <h2>Detalle</h2>
+          <div id="detail" class="detail">Selecciona una sesion.</div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="tab-sync">
+        <div class="section-grid">
+          <section class="panel">
+            <h2>Analisis sincrono</h2>
+            <p class="hint">Define el nombre de la sesion que recibira los datos live enviados por el ESP32.</p>
+            <form id="liveControlForm" class="form">
+              <label>
+                Nombre de sesion live
+                <input id="liveControlSessionId" required value="live_run_001" />
+              </label>
+              <div class="panel-actions">
+                <button id="liveControlStartBtn" type="submit">Iniciar registro</button>
+                <button id="liveControlPauseBtn" class="danger-button" type="button">Pausar registro</button>
+                <button id="liveControlFinishBtn" class="secondary" type="button">Finalizar registro</button>
+              </div>
+            </form>
+            <details class="secondary-tool">
+              <summary>Herramienta de prueba: lote sintetico</summary>
+              <form id="batchForm" class="form">
+                <label>
+                  Session ID sintetica
+                  <input id="batchSessionId" required value="live_test_001" />
+                </label>
+                <button type="submit">Enviar lote sintetico</button>
+              </form>
+            </details>
+          </section>
+
+          <section class="panel">
+            <h2>Estado tiempo real</h2>
+            <div id="syncStatus" class="status-card pending">
+              <span class="status-dot"></span>
+              <div>
+                <strong>Esperando datos del ESP32</strong>
+                <p>No hay una sesion live reciente.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel wide live-dashboard">
+          <div class="panel-header">
+            <div>
+              <h2>Panel live de anomalias</h2>
+              <p id="liveSessionLabel" class="hint">Sin sesion live activa.</p>
+            </div>
+            <div class="panel-actions">
+              <button id="liveRefreshBtn" type="button">Actualizar live</button>
+            </div>
+          </div>
+
+          <div id="liveAlert" class="live-alert idle">
+            <strong>Esperando datos</strong>
+            <span>No hay resultados live recientes.</span>
+          </div>
+
+          <div id="liveMetrics" class="summary-grid live-metrics">
+            <div class="metric"><span>Sesion</span><strong>n/a</strong></div>
+            <div class="metric"><span>Filas recibidas</span><strong>0</strong></div>
+            <div class="metric"><span>Ventanas inferidas</span><strong>0</strong></div>
+            <div class="metric"><span>Ultimo score</span><strong>n/a</strong></div>
+            <div class="metric"><span>Pico anomalia</span><strong>n/a</strong></div>
+            <div class="metric"><span>Ratio anomalia</span><strong>0.00%</strong></div>
+          </div>
+
+          <div class="live-grid">
+            <div class="live-chart">
+              <div class="viewer-header">
+                <strong>Score de anomalia reciente</strong>
+                <span id="liveScoreLabel">Sin ventanas</span>
+              </div>
+              <canvas id="liveScoreCanvas" width="980" height="260"></canvas>
+            </div>
+
+            <div class="live-chart">
+              <div class="viewer-header">
+                <strong>Ultima ventana inferida</strong>
+                <span id="liveWindowLabel">Sin ventana</span>
+              </div>
+              <div class="viewer-controls">
+                <label class="inline-toggle">
+                  <input id="liveAutoFollow" type="checkbox" checked />
+                  Actualizar en directo
+                </label>
+                <div class="nav-buttons" aria-label="Navegacion de ventanas live">
+                  <button class="secondary compact" data-live-window-step="-10" title="Retroceder 10 ventanas">«10</button>
+                  <button class="secondary compact" data-live-window-step="-1" title="Retroceder 1 ventana">‹1</button>
+                  <button class="secondary compact" data-live-window-step="1" title="Avanzar 1 ventana">1›</button>
+                  <button class="secondary compact" data-live-window-step="10" title="Avanzar 10 ventanas">10»</button>
+                </div>
+                <div class="scale-controls" aria-label="Escala vertical live">
+                  <span>Escala Y</span>
+                  <button class="secondary compact" id="liveZoomOut" type="button" title="Ver mas rango vertical">−</button>
+                  <span id="liveYZoomLabel">1.00x</span>
+                  <button class="secondary compact" id="liveZoomIn" type="button" title="Aumentar detalle vertical">+</button>
+                </div>
+              </div>
+              <input id="liveWindowSlider" type="range" min="0" max="0" value="0" />
+              <div class="series-controls" aria-label="Series visibles live">
+                <label><input type="checkbox" data-live-series="x" checked> X real</label>
+                <label><input type="checkbox" data-live-series="y" checked> Y real</label>
+                <label><input type="checkbox" data-live-series="z" checked> Z real</label>
+                <label><input type="checkbox" data-live-series="rx"> X reconstruido</label>
+                <label><input type="checkbox" data-live-series="ry"> Y reconstruido</label>
+                <label><input type="checkbox" data-live-series="rz"> Z reconstruido</label>
+              </div>
+              <canvas id="liveWindowCanvas" width="980" height="320"></canvas>
+              <p id="liveWindowHint" class="hint">La ventana se actualiza con los ultimos resultados publicados por el servidor de inferencia.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel wide">
+          <div class="panel-header">
+            <h2>Historico de sesiones live</h2>
+            <button id="liveSessionsRefreshBtn" type="button">Recargar live</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>session_id</th>
+                  <th>filas</th>
+                  <th>actualizada</th>
+                  <th>estado</th>
+                  <th>ratio anomalia</th>
+                  <th>acciones</th>
+                </tr>
+              </thead>
+              <tbody id="liveSessionsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel wide">
+          <h2>Detalle live</h2>
+          <div id="liveDetail" class="detail">Selecciona una sesion live del historico.</div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="tab-config">
+        <section class="panel wide">
+          <div class="panel-header">
+            <h2>Configuracion de conexiones</h2>
+            <button id="refreshBtn">Actualizar</button>
+          </div>
+
+          <div class="config-grid">
+            <label>
+              Servidor de inferencia
+              <select id="workerSelect">
+                <option value="">Sin workers disponibles</option>
+              </select>
+            </label>
+
+            <div class="connection-map">
+              <div id="vpsNode" class="node pending">
+                <span class="status-dot"></span>
+                <strong>VPS API</strong>
+                <small>FastAPI puente</small>
+              </div>
+              <div class="connector"></div>
+              <div id="workerNode" class="node pending">
+                <span class="status-dot"></span>
+                <strong>Inferencia</strong>
+                <small>PC con autoencoder</small>
+              </div>
+              <div class="connector"></div>
+              <div id="espNode" class="node pending">
+                <span class="status-dot"></span>
+                <strong>ESP32</strong>
+                <small>Datos en tiempo real</small>
+              </div>
+            </div>
+          </div>
+
+          <div id="architectureDetail" class="architecture-detail"></div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="tab-about">
+        <section class="panel wide about-panel">
+          <div class="panel-header about-header">
+            <div>
+              <p class="eyebrow">Trabajo Fin de Master</p>
+              <h2>Monitorizacion ferroviaria con acelerometria y deep learning</h2>
+            </div>
+            <div class="about-actions">
+              <a class="download secondary-link" href="/docs/memoria_tfm.pdf" target="_blank" rel="noreferrer" download>Descargar memoria PDF</a>
+              <a class="download secondary-link" href="/docs" target="_blank" rel="noreferrer">Documentacion API</a>
+            </div>
+          </div>
+
+          <div class="about-copy">
+            <p>
+              Este Trabajo Fin de Master aborda el diseno y evaluacion experimental de un sistema de deteccion de anomalias ferroviarias basado en acelerometria de bajo coste y tecnicas de deep learning. La motivacion principal es explorar si sensores baratos, facilmente disponibles y potencialmente instalables en material rodante pueden aportar informacion util sobre el estado de la infraestructura ferroviaria, reduciendo la dependencia de inspecciones manuales o sistemas de monitorizacion mas costosos. La hipotesis de partida es que una alteracion en la via modifica la firma vibracional registrada durante la circulacion del tren, y que dicha variacion puede ser detectada automaticamente mediante modelos entrenados sobre datos de funcionamiento normal y anomalo.
+            </p>
+            <p>
+              Dado que la captura masiva de datos en trenes reales requiere recursos, permisos e infraestructura fuera del alcance de este proyecto, se plantea un banco experimental basado en una maqueta ferroviaria. Aunque este entorno no reproduce completamente la complejidad de una infraestructura real, permite controlar las condiciones de circulacion, modificar tramos concretos de via y obtener datos suficientes para estudiar el problema de forma reproducible. La maqueta se instrumenta con un microcontrolador ESP32 y un acelerometro triaxial ADXL345, configurado para capturar aceleraciones a 100 Hz. Los datos recogidos permiten caracterizar la circulacion normal y compararla con la producida al introducir defectos fisicos en la via.
+            </p>
+            <p>
+              El sistema desarrollado integra la captura de datos, su transmision a un servidor central, el almacenamiento de sesiones, la ejecucion de modelos de inferencia y una interfaz web para visualizar los resultados. La plataforma permite tanto analisis asincrono de ficheros CSV previamente capturados como analisis sincrono en tiempo real mientras la maqueta se encuentra en funcionamiento. Esto permite evaluar no solo la calidad de los modelos, sino tambien la viabilidad de un flujo completo de monitorizacion remota.
+            </p>
+            <p>
+              Durante el desarrollo se evaluaron distintas aproximaciones, comenzando por un baseline estadistico basado en RMS y continuando con modelos de autoencoder y VAE entrenados sobre circulacion normal. Los resultados mostraron que el VAE es adecuado para detectar anomalias fuertes, como impactos o saltos producidos por alteraciones claras en la via. Sin embargo, tambien se identifico una limitacion relevante: no todas las anomalias tienen la misma firma vibracional. En particular, las anomalias de patinaje o frenado sutil no siempre generan picos de aceleracion evidentes, sino cambios mas debiles y localizados en la dinamica temporal del tren.
+            </p>
+            <p>
+              A partir de este hallazgo se propone un detector hibrido, combinando un VAE para anomalias generales con una CNN multiescala especializada en patrones de patinaje. Esta arquitectura permite diferenciar mejor el tipo de anomalia detectada y mejora la capacidad del sistema frente a un unico modelo no supervisado. En la validacion externa realizada sobre una captura independiente de patinaje, el sistema detecto 44 de 60 vueltas con anomalia, manteniendo 5 falsos positivos sobre 360 vueltas normales, lo que muestra una mejora significativa respecto al VAE aislado para este tipo de defecto.
+            </p>
+            <p>
+              Como conclusion, el proyecto demuestra la viabilidad experimental de un sistema de monitorizacion ferroviaria basado en sensores de bajo coste, transmision remota e inferencia mediante deep learning. Aunque su traslado a una infraestructura real requeriria mas datos y validacion en campo, los resultados muestran que la acelerometria embarcada puede aportar informacion relevante para detectar tramos anomalos de via.
+            </p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+    <script src="/ui/app.js?v=20260610-live-ux"></script>
+  </body>
+</html>
